@@ -1,0 +1,20 @@
+0x0001						lw 	$t3, 0x2000 							# Load P into regsiter
+0x0002						li 	$t1, 1										# Init the result regsiter to p = 0 base case
+0x0003 loop: 			sll	$t1, $t1, 1								# Lines 0x3-9 muiptly $t1 by 6 the base in this problem.
+0x0004						li	$t2, 0									
+0x0005						add	$t2, $t2, $t1							
+0x0006						add	$t2, $t2, $t1
+0x0007						add	$t2, $t2, $t1							 
+0x0008						sw	$t2, 0x2008								
+0x0009						lw	$t1, 0x2008	
+0x000a						lw	$t0, 0x2004								# Load Q			
+0x000b mod:				blt	$t1, $t0, out							# If result is less than Q carry on if not subtract Q as needed
+0x000c						sub	$t1, $t1, $t0			
+0x000d						j 	mod												# Jump in loop -3 instructions				
+0x000f out:				li	$t0, 1										# Update power see if at end						
+0x0010						sub	$t3, $t3, $t0			
+0x0011						blt	$t3, $t0, end				
+0x0012						j 	loop											# Jump in loop -16 instructions			
+0x0013 end:				sw	$t1, 0x2008								# Save word into result space					
+0x0014						dead: 	j dead								# Dead loop
+							
