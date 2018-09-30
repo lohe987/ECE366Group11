@@ -1,8 +1,10 @@
-# ${project_name} Change Log
+# ECE366Group11 Change Log
 
 All notable changes are documented here.
 
 Subheadings are the in format MM.DD.XX, MM is month, DD is day, XX is change for that day start index at 0.
+
+Please add most recent updates first that way the list will be in reverse cornicallogical order.
 
 ## 09.30.00
 
