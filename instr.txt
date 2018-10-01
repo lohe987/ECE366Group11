@@ -1,0 +1,9 @@
+load 000 RR RR
+store 001 RR RR
+add 010 RR RR
+branch 011 RR RR
+jump 100 iiii
+init 101 RR ii
+slr 110 00 RR
+and 110 01 RR
+sll 110 10 RR
