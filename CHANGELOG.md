@@ -13,3 +13,10 @@ Please add most recent updates first that way the list will be in reverse cornic
 - Took MIPS code and put it in text file with line numbers as outlined in project documents.
 - I think jump should only go back or to some imm for 0-15. Still need to rewrite Best match to be sure.
 
+## 10.01.00
+
+- Spent 1 hours starting assembler program works for about half of the instructions we picked
+- Currently uses dictionaries to look up proper code and encode
+- Praity bit is working testing no bugs found
+- assemble_file uses default args of CTZ_instructions.txt and output of CTZ_machine_code.txt
+- TO DO is 2 comps function change a number into 2's comp
