@@ -1,0 +1,4 @@
+load R0, R1
+add R2, R3
+store R0, R3
+next R0, R1

@@ -58,6 +58,30 @@ def add_praity_bit(encoded_line):
     else:
         return "0" + encoded_line
 
+def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_machine_code.txt"):
+    # Open files using default args or user provided
+    input_file = open(input_file_name, "r")
+    output_file = open(output_file_name, "w")
+
+    # For each line in input file process the function
+    for line in input_file:
+        line = line.replace(",", "")
+        line = line.replace("\n", "")
+        line = line.split(" ")
+        func = instructions.get(line[0], "?")
+        # Check if function is known if not print error messafe
+        if func == "?":
+            output_file.write("UNKNOWN\n")
+        else:
+            # Encode function then add praity bit
+            encoded = add_praity_bit(func(line)) + "\n"
+            output_file.write(encoded)
+
+    input_file.close()
+    output_file.close()
+
+
+
 instructions = {"load" : instr_load,
                "store" : instr_store,
                "add" : instr_add,
@@ -75,9 +99,4 @@ registers = {"R0" : "00",
 
 
 if __name__ == "__main__":
-    print("Testing program")
-    line = "load R0, R1"
-    line = line.replace(",","")
-    line = line.split(" ")
-    print(line)
-    print(instructions["load"](line))
+    assemble_file()
