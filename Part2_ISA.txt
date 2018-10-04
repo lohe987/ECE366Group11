@@ -1,0 +1,61 @@
+load 000 RR RR
+store 001 RR RR
+add 010 RR RR
+branch 011 RR RR #we need to make this more clear.
+jump 100 iiii
+init 101 RR ii
+slr 110 00 RR
+and 110 01 RR
+sll 110 10 RR
+
+# This is part two of project 2 searching for best matching     # score and count. Assuming M[3] is the target, 			     # M[4] = best_mathing_Score, M[5] = best_matching_count
+# M[8] = beginning of Pattern_Array
+#
+
+	init r0, 1				
+	#lw r1, r0 #sets r1 = target will probably need to do this 
+	#repeatedly so as to have enough registers
+	init r1, 1 #r1 = 1
+	init r2, 1 #r2 = 1
+	init r3, 1 #r3 = 1
+	add r3, r2 #r3 = 2
+	add r2, r3 #r2 = 3
+	sll r3 	# r3 = 4
+	init r0, 0 
+	add r0, r3 # r0 = 4
+	sll r3	# r3 = 8
+	sw r3, r1	#M[1] = 8; the address of beginning of pattern
+	sll r3 	# r3 = 16
+	sw r3, r2 	#M[3] = 16 basically a counter for each compare
+	sll r3 	# r3 = 32
+	init r1, 0 
+	add r1, r3 # r1= 32
+	sll r3 	# r3 = 64
+	add r3, r1 # r3 = 96
+	add r3, r0 # r3 = 100
+	init r0, 0
+	sw r3, r0 # saves 100 into M[0] to be used as a counter
+
+loop:	# location in instr. mem. should be 6 (for jump)
+
+	init r0, 0
+	lw r3, r0 # r3 = M[0] (the counter)
+	branch r3, ?? #branch if r3 is = 0 to done
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
