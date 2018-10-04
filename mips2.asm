@@ -1,10 +1,10 @@
 .data
-T: .word 12
-#T: .word 0xABCDEF00
+#T: .word 12
+T: .word 0xABCDEF00
 #T: .word -5
 best_matching_score: .word -1 # best score = ? within [0, 32]
 best_matching_count: .word -1 # how many patterns achieve the best score?
-Pattern_Array: .word 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12
+Pattern_Array: .word 0, 1, 2, 3, 4, -1, -2, -3, -4, -5, 0xEEEEEEEE, 0x44448888, 0x77777777, 0x33333333, 0xAAAAAAAA, 0xFFFF0000, 0xFFFF, 0xCCCCCCCC, 0x66666666, 0x99999999  
 #Pattern_Array: .word 0, 1, 2, 3, 4, -1, -2, -3, -4, -5, 0xEEEEEEEE, 0x44448888, 0x77777777, 0x33333333, 0xAAAAAAAA, 0xFFFF0000, 0xFFFF, 0xCCCCCCCC, 0x66666666, 0x99999999
 #Pattern_Array: .word 1, -2, 3, -4, 5, -6, 7, -8, 9, -10, -5, 5, -5, 5, -5, 1, -2, 3, -4, 5
 
