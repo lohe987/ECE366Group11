@@ -1,7 +1,7 @@
 load 000 RR RR
 store 001 RR RR
 add 010 RR RR
-branch 011 RR RR #we need to make this more clear.
+beq 011 RR RR #we need to make this more clear.
 jump 100 iiii
 init 101 RR ii
 slr 110 00 RR
@@ -36,54 +36,98 @@ xor 111 RR	RR
 	sw r3, r0 # saves 100 into M[0] to be used as a counter
 
 loop:	# location in instr. mem. should be 6 (for jump)
-
+	jump 7 # so it doesnt decrement counter too early
 	init r0, 0
-	lw r3, r0 # r3 = M[0] (the counter)
-	branch r3, r0 #branch if r3 is = 0 to 
-	jump done #put immediate in when the number of lines to 				#jump is known
-
-
+	init r1, -1
+	lw r3, r0
+	add r3, r1
+	sw r3, r0
+beq r0, r0 #skips the proceeding jump
+	jump 3
+	beq r0, r0 #skips the proceeding jump
+	jump -8 	#puts it at the beginning so as to start the				#next word
 	init r1, 1
+	lw r3, r0 # r3 = M[0] (the counter)
+	beq r3, r0 #beq skips the first jump when r3=0
+	jump 2
+	jump 7 #begins lines of jump to leave
+	beq r0, r0 #skips the proceeding jump
+	jump -7 
 	lw r3, r1 	#loads the value for loading the pattern array
 	lw r2, r3	#loads the value of the pattern array
 	add r1, r1 #make r1 = 2
+beq r0, r0 #skips the proceeding jump
+	jump 7
+	beq r0, r0 #skips the proceeding jump
+	jump -7 
 	init r0, 1
 	add r1, r0
 	lw r1, r1 	#load the target word
+beq r0, r0 #skips the proceeding jump
+	jump 7
+beq r0, r0 #skips the proceeding jump
+	jump -7
 	init r3, -1
 	xor r1, r2 #the number of 0s in r1 is = to # of bits match
 	xor r1, r3	 #NOT's r1 to that the 0's become 1's
-
+	beq r0, r0 #skips the proceeding jump
+	jump 7
+beq r0, r0 #skips the proceeding jump
+	jump -7
+#Start new word here
 	init r2, 1
 	init r0, 0
 	add r2, r2
+beq r0, r0 #skips the proceeding jump
+	jump 7
+	beq r0, r0 #skips the proceeding jump
+	jump -7 # if M[2] = 0 go to beginning 
+	beq r0, r0 #skips the proceeding jump
+	jump -8 # going to start new bit
 	lw r2, r2
-	branch r2, r0
-	jump 1
-	jump -8			
-				#matcher:
-	branch r0, r0
-	jump -8
+	beq r0, r0 #skips the proceeding jump
+	jump 7
+	beq r2, r0 # if M[2] = 0 go to beginning
+	jump 2	
+	jump -8 # if M[2] = 0 go to beginning #matcher:			
+	beq r0, r0 #skips the proceeding jump
+	jump -8 
+	beq r0, r0 #skips the proceeding jump
+	jump 5
 	init r3, 1
 	init r2, 0
-	add r2, r1
+	add r2, r1 # r2 = 16bit NXOR of target & pattern
+	beq r0, r0 #skips the proceeding jump
+	jump 7
 	and r2, r3 #if the first bit matches result =1 
+	beq r0, r0 #skips the proceeding jump
+	jump -8
 	init r0, 0
 	sll r3 #r3 = 2
-	branch r0, r0
-	jump -8
+	beq r0, r0 #skips the proceeding jump
+	jump 7
 	add r0, r3
 	sll r3 #r3 = 4
+	beq r0, r0 #skips the proceeding jump
+	jump -8
 	add r3, r0 # r3 = 6
 	lw r0, r3 	#loads the existing value for best score temp
-	add r2, r0 #adds 1 to the best temp score counter
+	beq r0, r0 #skips the proceeding jump
+	jump 7
+	add r2, r0 #adds 1 to the best temp score counter if not 0
 	sw r2, r3	#saves the value back to best temp score
-	branch r0, r0
+	beq r0, r0 #skips the proceeding jump
 	jump -8
 	srl r1
+	beq r0, r0 #skips the proceeding jump
+	jump 7
 	init r2, 1
+	beq r0, r0 #skips the proceeding jump
+	jump -8
 	add r2, r2 #r2 = 2
 	lw r3, r2	#loads the counter (from 16 down)
+	beq r0, r0 #skips the proceeding jump
+	jump 7
 	init r0, -1
 	add r3, r0
 	sw r3, r2 # saves the counter back in after -1
