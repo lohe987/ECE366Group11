@@ -58,6 +58,12 @@ def add_praity_bit(encoded_line):
     else:
         return "0" + encoded_line
 
+def convert_imm_value(number):
+    print(int(number))
+    if int(number) < 0:
+        number = 0xFFFF - int(number[1:]) + 1
+    return format(int(number), "016b")
+
 def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_machine_code.txt"):
     # Open files using default args or user provided
     input_file = open(input_file_name, "r")
