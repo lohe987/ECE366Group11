@@ -1,0 +1,21 @@
+init R0, 1
+load R0, R0
+init R1, -1
+init R2, 0
+init R3, 0
+add R3, R1 # Add one to negative number forming
+add R0, R1 # Take one from positive number
+beq R0, R2 # If Q loaded from memory is zero breakout of loop
+jump -4
+init R1, 1  # At this point R3 is the negative value of Q
+sll R1      #Start of muiptly
+init R2, 0
+add R2, R1
+add R2, R1
+add R2, R1
+init R0, 1
+add R0, R0 # R0 = 2
+store R2, R0
+load R1, R0 # Load 6 * Previous result
+init R0, 1
+load R2, R0 # Load Q from memory
