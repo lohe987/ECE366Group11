@@ -6,6 +6,10 @@ Subheadings are the in format MM.DD.XX, MM is month, DD is day, XX is change for
 
 Please add most recent updates first that way the list will be in reverse cornicallogical order.
 
+## 10.07.00
+
+- Finished `assembler.py` believed to be working version tested and complete.
+
 ## 10.01.00
 
 - Spent 1 hours starting assembler program works for about half of the instructions we picked
