@@ -1,4 +1,11 @@
 load R0, R1
 add R2, R3
 store R0, R3
-next R0, R1
+init R0, 1
+init R0, -2
+init R3, 0
+init R3, -1
+jump 0
+jump -2
+jump 7
+slr R0

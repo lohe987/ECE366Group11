@@ -7,3 +7,4 @@ init 101 RR ii
 slr 110 00 RR
 and 110 01 RR
 sll 110 10 RR
+xor 111 RR RR
