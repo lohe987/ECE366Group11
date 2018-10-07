@@ -9,6 +9,8 @@ Please add most recent updates first that way the list will be in reverse cornic
 ## 10.07.00
 
 - Finished `assembler.py` believed to be working version tested and complete.
+- Try to start Par1_ISA but I think we really need set less than otherwise I dont see how we can do the loops
+- I got stuck once I got to take the mod part
 
 ## 10.01.00
 
