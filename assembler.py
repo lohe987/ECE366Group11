@@ -30,23 +30,27 @@ def instr_branch(line):
 
 def instr_jump(line):
     # 100 iiii
-    return "NOT COMPLETE"
+    return "100" + convert_imm_value(line[1])[-4:]
 
 def instr_init(line):
     # 101 RR ii
-    return "NOT COMPLETE"
+    return "101" + registers.get(line[1], "??") + convert_imm_value(line[2])[-2:]
 
 def instr_slr(line):
     # 110 00 RR
-    return "NOT COMPLETE"
+    return "110" + "00" + registers.get(line[1], "??")
 
 def instr_and(line):
     # 110 01 RR
-    return "NOT COMPLETE"
+    return "110" + "01" + registers.get(line[1], "??")
 
 def instr_sll(line):
     # 110 10 RR
-    return "NOT COMPLETE"
+    return "110" + "10" + registers.get(line[1], "??")
+
+def instr_xor(line):
+    # 111 RR RR
+    return "111" + registers.get(line[1], "??") + registers.get(line[2], "??")
 
 def add_praity_bit(encoded_line):
     # Adds even parity bit to encoded_line
@@ -59,7 +63,6 @@ def add_praity_bit(encoded_line):
         return "0" + encoded_line
 
 def convert_imm_value(number):
-    print(int(number))
     if int(number) < 0:
         number = 0xFFFF - int(number[1:]) + 1
     return format(int(number), "016b")
@@ -93,10 +96,11 @@ instructions = {"load" : instr_load,
                "add" : instr_add,
                "branch" : instr_branch,
                "jump" : instr_jump,
-               "init" : instr_slr,
+               "init" : instr_init,
                "and" : instr_and,
                "sll" : instr_sll,
-               "slr" : instr_slr}
+               "slr" : instr_slr,
+               "xor" : instr_xor}
 
 registers = {"R0" : "00",
              "R1" : "01",
