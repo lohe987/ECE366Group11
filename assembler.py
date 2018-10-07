@@ -74,6 +74,8 @@ def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_
 
     # For each line in input file process the function
     for line in input_file:
+        if line.find("#"):
+            line = line[:line.find("#")]
         line = line.replace(",", "")
         line = line.replace("\n", "")
         line = line.split(" ")
