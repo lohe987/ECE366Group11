@@ -6,6 +6,12 @@ Subheadings are the in format MM.DD.XX, MM is month, DD is day, XX is change for
 
 Please add most recent updates first that way the list will be in reverse cornicallogical order.
 
+## 10.08.00
+
+- Changed instruction set to include set less than (slt)
+- Jump now takes a register value to be determined if that is the line of code or the offset
+- Add bitwise not command so no need to xor with 0xFFFF to invert.
+
 ## 10.07.00
 
 - Finished `assembler.py` believed to be working version tested and complete.
