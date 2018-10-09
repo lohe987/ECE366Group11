@@ -29,8 +29,8 @@ def instr_branch(line):
         return "011" + registers.get(line[1], "??") + registers.get(line[2], "??")
 
 def instr_jump(line):
-    # 100 iiii
-    return "100" + convert_imm_value(line[1])[-4:]
+    # 110 10 RR
+    return "110" + "10" + registers.get(line[1], "??")
 
 def instr_init(line):
     # 101 RR ii
@@ -44,13 +44,17 @@ def instr_and(line):
     # 110 01 RR
     return "110" + "01" + registers.get(line[1], "??")
 
-def instr_sll(line):
-    # 110 10 RR
-    return "110" + "10" + registers.get(line[1], "??")
+def instr_slt(line):
+    # 100 RX RY
+    return "100" + registers.get(line[1], "??") + registers.get(line[2], "??")
 
 def instr_xor(line):
     # 111 RR RR
     return "111" + registers.get(line[1], "??") + registers.get(line[2], "??")
+
+def instr_not(line):
+    # 110 11 RR
+    return "110" + "11" + registers.get(line[1], "??")
 
 def add_praity_bit(encoded_line):
     # Adds even parity bit to encoded_line
@@ -101,8 +105,9 @@ instructions = {"load" : instr_load,
                "jump" : instr_jump,
                "init" : instr_init,
                "and" : instr_and,
-               "sll" : instr_sll,
+               "slt" : instr_slt,
                "slr" : instr_slr,
+               "not" : instr_not,
                "xor" : instr_xor}
 
 registers = {"R0" : "00",
