@@ -1,6 +1,10 @@
-# READ ME
+# ECE366Group11
 
 Place information revalent to delieverables and running code here.
+
+## ISA Instruction Information
+
+![alt text](https://github.com/lohe987/ECE366Group11/blob/master/ISA_Table.PNG)
 
 ## ECE366_mod17_7inst.asm
 
