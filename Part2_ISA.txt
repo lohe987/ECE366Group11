@@ -2,16 +2,23 @@ load 000 RR RR
 store 001 RR RR
 add 010 RR RR
 beq 011 RR RR #we need to make this more clear.
-jump 100 iiii
+slt 100 RR RR
 init 101 RR ii
 slr 110 00 RR
 and 110 01 RR
-sll 110 10 RR
+jump 110 10 RR
 xor 111 RR	RR
 
-# This is part two of project 2 searching for best matching     # score and count. Assuming M[3] is the target, 			     # M[4] = best_mathing_Score, M[5] = best_matching_count
+# This is part two of project 2 searching for best matching     # score and count. 
 # M[8] = beginning of Pattern_Array
-#
+# M[7] = temp score # 2
+# M[6] = temp score holder
+# M[5] = best_matching_count
+# M[4] = best_mathing_Score
+# M[3] = target
+# M[2] = 16 a counter for each compare
+# M[1] = the address of beginning of pattern
+# M[0] = be used as a counter for number of patterns
 
 	init r0, 1				
 	init r1, 1 
@@ -19,136 +26,124 @@ xor 111 RR	RR
 	init r3, 1 
 	add r3, r2 #r3 = 2
 	add r2, r3 #r2 = 3
-	sll r3 	# r3 = 4
+	add r3, r3 	# r3 = 4
 	init r0, 0 
 	add r0, r3 # r0 = 4
-	sll r3	# r3 = 8
-	sw r3, r1	#M[1] = 8; the address of beginning of pattern
-	sll r3 	# r3 = 16
-	sw r3, r2 	#M[2] = 16 a counter for each compare
-	sll r3 	# r3 = 32
+	add r3, r3	# r3 = 8
+	store r3, r1	#M[1] = 8; the address of beginning of pattern
+	add r3, r3 	# r3 = 16
+	store r3, r2 	#M[2] = 16 a counter for each compare
+	add r3, r3 	# r3 = 32
 	init r1, 0 
 	add r1, r3 # r1= 32
-	sll r3 	# r3 = 64
+	add r3, r3 	# r3 = 64
 	add r3, r1 # r3 = 96
 	add r3, r0 # r3 = 100
 	init r0, 0 
-	sw r3, r0 # saves 100 into M[0] to be used as a counter
-
-loop:	# location in instr. mem. should be 6 (for jump)
-	jump 7 # so it doesnt decrement counter too early
-	init r0, 0
-	init r1, -1
-	lw r3, r0
-	add r3, r1
-	sw r3, r0
-beq r0, r0 #skips the proceeding jump
-	jump 3
-	beq r0, r0 #skips the proceeding jump
-	jump -8 	#puts it at the beginning so as to start the				#next word
+	store r3, r0 # saves 100 into M[0] to be used as a counter
+	init r0, 0 
+	***jump r1
+Big loop:	
+	init r0, 1
 	init r1, 1
-	lw r3, r0 # r3 = M[0] (the counter)
-	beq r3, r0 #beq skips the first jump when r3=0
-	jump 2
-	jump 7 #begins lines of jump to leave
-	beq r0, r0 #skips the proceeding jump
-	jump -7 
-	lw r3, r1 	#loads the value for loading the pattern array
-	lw r2, r3	#loads the value of the pattern array
+	add r1, r1 #2 
+	add r1, r1 #4
+	add r0, r0 #2
+	add r0, r1 #6
+	load r2, r1 #r2 = M[4] best score
+	load r3, r0 #r3 = M[6] temp best score
+	slt r2, r3 # if r2<r3 r0=1
+	init r1, 0
+	beq r0, r1 # skip saving new value into best score
+	store r3, r0 # if r2<r3 then M[4] = r3
+	init r1, 1
+	add r1, r1 #r1=2
+	add r1, r1 #r1=4
+	add r0, r1	#r0=10
+	add r0, r1 #r0=14
+	init r1, -1
+	add r0, r1
+	beq r2, r3
+	jump r0 #jump up 13
+	init r0, 1
+	init r1, 1
+	add r0, r0 #r0=2
+	add r0, r0 #r0=4
+	add r0, r1 #r0 = 5
+	load r1, r0 #loads best matching count
+	init r2, 1
+	add r1, r2
+	store r1, r0
+	load r1, r2
+	add r1, r2
+	jump r1 # jumps by 9
+	init r0, 1
+	init r1, 1
+	add r0, r0
+	add r0, r0
+	add r0, r1 #r0 = 5
+	load r1, r0 #loads best matching count
+	init r1, 0
+	store r1, r0 #sets M[5] back to 0 if new score 
+	init r1, 1
+	add r1, r0 #6
+	init r0, 0
+	store r0, r1 
+	init r0, 0 # where it actually begins
+	init r1, -1
+	load r3, r0
+	add r3, r1
+	store r3, r0
+	init r1, 1
+	load r3, r0 # r3 = M[0] (the counter)
+	load r3, r1 	#loads the value for loading the pattern array
+	load r2, r3	#loads the value of the pattern array
 	add r1, r1 #make r1 = 2
-beq r0, r0 #skips the proceeding jump
-	jump 7
-	beq r0, r0 #skips the proceeding jump
-	jump -7 
 	init r0, 1
 	add r1, r0
-	lw r1, r1 	#load the target word
-beq r0, r0 #skips the proceeding jump
-	jump 7
-beq r0, r0 #skips the proceeding jump
-	jump -7
-	init r3, -1
+	load r1, r1 	#load the target word
 	xor r1, r2 #the number of 0s in r1 is = to # of bits match
-	xor r1, r3	 #NOT's r1 to that the 0's become 1's
-	beq r0, r0 #skips the proceeding jump
-	jump 7
-beq r0, r0 #skips the proceeding jump
-	jump -7
-#Start new word here
+	not r1 #NOT's r1 to that the 0's become 1's
+#loop:
+	init r3, 1
+	init r0, -1
+	init r2, 0
+	add r3, r3 #r3=2
+	add r3, r3 #r3=4
+	add r2, r3 #r2= 4
+	add r3, r3 #r3=8
+	add r2, r3 #r2=12
+	add r3, r3 #r3=16
+	add r3, r2 #r3=28
+	add r3, r0 #r3=27
 	init r2, 1
-	init r0, 0
+	init r0, 0	
 	add r2, r2
-beq r0, r0 #skips the proceeding jump
-	jump 7
-	beq r0, r0 #skips the proceeding jump
-	jump -7 # if M[2] = 0 go to beginning 
-	beq r0, r0 #skips the proceeding jump
-	jump -8 # going to start new bit
-	lw r2, r2
-	beq r0, r0 #skips the proceeding jump
-	jump 7
-	beq r2, r0 # if M[2] = 0 go to beginning
-	jump 2	
-	jump -8 # if M[2] = 0 go to beginning #matcher:			
-	beq r0, r0 #skips the proceeding jump
-	jump -8 
-	beq r0, r0 #skips the proceeding jump
-	jump 5
+	load r2, r2
+	beq r2, r0 # if M[2] = goes to jump at mem 
+	beq r0, r0 # jumps line 77 if above statment is not true
+	jump r3 #jumps to line *big loop* in code for new pattern
 	init r3, 1
 	init r2, 0
-	add r2, r1 # r2 = 16bit NXOR of target & pattern
-	beq r0, r0 #skips the proceeding jump
-	jump 7
+	add r2, r1 # r2 = 16bit NXOR of target & pattern 
 	and r2, r3 #if the first bit matches result =1 
-	beq r0, r0 #skips the proceeding jump
-	jump -8
 	init r0, 0
-	sll r3 #r3 = 2
-	beq r0, r0 #skips the proceeding jump
-	jump 7
+	add r3, r3 #r3 = 2
 	add r0, r3
-	sll r3 #r3 = 4
-	beq r0, r0 #skips the proceeding jump
-	jump -8
+	add r3, r3 #r3 = 4
 	add r3, r0 # r3 = 6
-	lw r0, r3 	#loads the existing value for best score temp
-	beq r0, r0 #skips the proceeding jump
-	jump 7
-	add r2, r0 #adds 1 to the best temp score counter if not 0
-	sw r2, r3	#saves the value back to best temp score
-	beq r0, r0 #skips the proceeding jump
-	jump -8
+	load r0, r3 	#loads the existing value for best score temp
+	add r2, r0 	#adds the result of and to the best temp score counter
+	store r2, r3	#saves r2 back to best temp score
 	srl r1
-	beq r0, r0 #skips the proceeding jump
-	jump 7
 	init r2, 1
-	beq r0, r0 #skips the proceeding jump
-	jump -8
 	add r2, r2 #r2 = 2
-	lw r3, r2	#loads the counter (from 16 down)
-	beq r0, r0 #skips the proceeding jump
-	jump 7
+	load r3, r2	#loads the counter (from 16 down)
 	init r0, -1
 	add r3, r0
-	sw r3, r2 # saves the counter back in after -1
-	jump -8
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+	store r3, r2 # saves the counter back in after -1
+	init r0, 1
+	add r0, r0 # r0 = 2
+	add r2, r2	# r2 = 4
+	add r0, r2	# r0 = 6
+	load r3, r0	# loads the current temporary score

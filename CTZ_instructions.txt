@@ -1,4 +1,15 @@
 load R0, R1
 add R2, R3
-store R0, R3
-next R0, R1
+store R0, R3 # Break out now
+init R0, 1
+# I don't know what im typing
+init R0, -2 #ldksfkld
+init R3, 0
+init R3, -1
+#Just nothing
+jump R0
+jump R2
+jump R1
+slr R0
+not R3
+slt R2 R2

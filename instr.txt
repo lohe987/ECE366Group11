@@ -1,9 +1,11 @@
 load 000 RR RR
 store 001 RR RR
 add 010 RR RR
-branch 011 RR RR
-jump 100 iiii
-init 101 RR ii
-slr 110 00 RR
-and 110 01 RR
-sll 110 10 RR
+branch 011 RR RR # if RR = RR jump forward two other wise continue to next instr
+slt 100 RX RY #Set R0 to 1 if RX < RY otherwise 0
+init 101 RR ii # Init RR to -2 to 1
+slr 110 00 RR # Logical Shift Right by one
+and 110 01 RR # And RR with 1
+jump 110 10 RR #
+not 110 11 RR #Negate ever bit of regsiter RR (C style: ~x)
+xor 111 RX RY # Bitwise xor of RX RY stored back into RX

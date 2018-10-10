@@ -1,0 +1,30 @@
+init R0, 1
+load R0, R0
+init R3, 0
+init R1, -1
+init R2, 0
+add R3, R1 # Add one to negative number forming
+add R0, R1 # Take one from positive number
+beq R0, R2 # If Q loaded from memory is zero breakout of loop
+init R2, -2
+add R2, R2 # R2 = -4
+add R2, R2 # R2 = -8
+jump R2 # Go back to "init R1, -1"
+init R1, 1  # At this point R3 is the negative value of Q
+add R1, R1  # R1 = 2 * R1
+init R2, 0
+add R2, R1	# R2 = 2 * R1
+add R2, R1  # R2 = 4 * R1
+add R2, R1	# R2 = 6 * R1
+init R0, 1
+add R0, R0 # R0 = 2
+store R2, R0 # Store result of 6 * R1 into memory in result spot
+load R1, R0 # Load 6 * R1 previous result into R1
+init R0, 1
+load R2, R0 # Load Q from memory
+slt R1, R2
+init R2, 1
+beq R0, R2 # If R0 == (R2 = 1) then branch
+jump 			 # Repeat muitplication and subtract
+add R1, R3
+jump 			 # Back to init R0, 1
