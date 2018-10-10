@@ -1,0 +1,13 @@
+load R0, R1
+add R2, R3
+store R0, R3
+init R0, 1
+init R0, -1
+init R3, 0
+init R3, -2
+jump R0
+jump R2
+jump R1
+slr R0
+not R3
+slt R2, R2
