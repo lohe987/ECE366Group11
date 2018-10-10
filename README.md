@@ -5,7 +5,7 @@
 
 ## ISA Instruction Information
 
-![alt text](https://github.com/lohe987/ECE366Group11/blob/master/ISA_Table.PNG)
+![alt text](https://github.com/lohe987/ECE366Group11/blob/master/ISA_Picture2.PNG)
 
 ## ECE366_mod17_7inst.asm
 
