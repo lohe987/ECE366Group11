@@ -24,7 +24,7 @@ def single_register(machine_line):
     # Determine function code
     asm_line = op_code.get(machine_line[4:6], "UNKNOWN")
     # Add register values
-    asm_line += " " + registers.get(machine_line[6:8], "??")
+    asm_line += " " + registers_bin_text.get(machine_line[6:8], "??")
     return asm_line
 
 def imm_value(machine_line):
@@ -33,7 +33,7 @@ def imm_value(machine_line):
              "00" : "0",
              "01" : "1"}
     # Add function word and register
-    asm_line = "init" + " " + registers.get(machine_line[4:6], "??") + ", "
+    asm_line = "init" + " " + registers_bin_text.get(machine_line[4:6], "??") + ", "
     # Find imm value in table
     asm_line += value.get(machine_line[6:8], "??")
     return asm_line
@@ -48,7 +48,7 @@ def double_register(machine_line):
     # Add function code to begining of assembler line
     asm_line = func_code.get(machine_line[1:4], "UNKNOWN")
     # Update with register values
-    asm_line += " " + registers.get(machine_line[4:6], "??") + ", " + registers.get(machine_line[6:8], "??")
+    asm_line += " " + registers_bin_text.get(machine_line[4:6], "??") + ", " + registers_bin_text.get(machine_line[6:8], "??")
     return asm_line
 
 def disassemble_file(input_file_name="CTZ_machine_code.txt", output_file_name="CTZ_instructions_decoded.txt"):
@@ -70,10 +70,10 @@ def disassemble_file(input_file_name="CTZ_machine_code.txt", output_file_name="C
     input_file.close()
     output_file.close()
 
-registers = {"00" : "R0",
-             "01" : "R1",
-             "10" : "R2",
-             "11" : "R3"}
+registers_bin_text = {"00" : "R0",
+                      "01" : "R1",
+                      "10" : "R2",
+                      "11" : "R3"}
 
 if __name__ == "__main__":
     disassemble_file()
