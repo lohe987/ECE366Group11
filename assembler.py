@@ -118,7 +118,7 @@ registers = {"R0" : "00",
              "r1" : "01",
              "r2" : "10",
              "r3" : "11"}
-
+             
 
 if __name__ == "__main__":
     assemble_file()
