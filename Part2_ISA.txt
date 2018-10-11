@@ -26,7 +26,7 @@ xor 111 RR	RR
 	init r3, 1 
 	add r3, r2 #r3 = 2
 	add r2, r3 #r2 = 3
-	add r3, r3 	# r3 = 4
+	add r3, r3 # r3 = 4
 	init r0, 0 
 	add r0, r3 # r0 = 4
 	add r3, r3	# r3 = 8
@@ -42,7 +42,7 @@ xor 111 RR	RR
 	init r0, 0 
 	store r3, r0 # saves 100 into M[0] to be used as a counter
 	init r0, 0 
-	***jump r1
+	***jump ??
 Big loop:	
 	init r0, 1
 	init r1, 1
@@ -52,50 +52,63 @@ Big loop:
 	add r0, r1 #6
 	load r2, r1 #r2 = M[4] best score
 	load r3, r0 #r3 = M[6] temp best score
-	slt r2, r3 # if r2<r3 r0=1
-	init r1, 0
-	beq r0, r1 # skip saving new value into best score
-	store r3, r0 # if r2<r3 then M[4] = r3
+if they match add to match count
 	init r1, 1
-	add r1, r1 #r1=2
-	add r1, r1 #r1=4
-	add r0, r1	#r0=10
-	add r0, r1 #r0=14
-	init r1, -1
-	add r0, r1
+	init r0, -1
+	add r1, r1	#2
+	add r1, r1 #4
+	add r1, r1 #8
+	add r1, r1 #16
+	add r0, r0 #-2
+	add r1, r0 #14
 	beq r2, r3
-	jump r0 #jump up 13
+	jump r1 to end of incrementing match count (14)
 	init r0, 1
 	init r1, 1
-	add r0, r0 #r0=2
-	add r0, r0 #r0=4
-	add r0, r1 #r0 = 5
-	load r1, r0 #loads best matching count
+	add r0, r0 #2
+	add r0, r0 #4
+	add r0, r1 #5
+	load r2, r0 # loads match count
+	add r2, r1 ## increments match count
+	store r2, r0 # stores match count
+	add r1, r1 #2
+	add r1, r1 #4
+	add r0, r1 #r0=9
+	add r0, r0 #18
+	jump r0 to where M[6] is switched to 0 (18)
+if they are not equal are is the temp score larger
+if so write new value into best score
+	slt r2, r3 # if r2<r3 r0=1
+	init r1, 1
 	init r2, 1
-	add r1, r2
-	store r1, r0
-	load r1, r2
-	add r1, r2
-	jump r1 # jumps by 9
+	add r2, r2 #2
+	add r2, r2 #4
+	add r2, r2 #8
+	add r2, r1 #9
+	beq r0, r1 # skips jump to store new value in best
+	jump r2 #jumps to set temp counter to 0 (9)
 	init r0, 1
+	add r0, r0
+	add r0, r0
+	store r3, r0 # if r2<r3 then M[4] = r3 (r0=1)
 	init r1, 1
-	add r0, r0
-	add r0, r0
-	add r0, r1 #r0 = 5
-	load r1, r0 #loads best matching count
+	add r0, r1
 	init r1, 0
-	store r1, r0 #sets M[5] back to 0 if new score 
-	init r1, 1
-	add r1, r0 #6
-	init r0, 0
-	store r0, r1 
-	init r0, 0 # where it actually begins
+	store r1, r0 #if new best score found match=0
+	init r0, 1
+	init r1, 0
+	add r0, r0 #r0=2
+	add r1, r0 #r1=2
+	add r0, r0 #r0=4
+	add r0, r1 #r0=6
+	init r1, 0
+	store r1, r0 #sets temp counter (M[6]) to 0
+	init r0, 0 # where it actually begins to decrement
 	init r1, -1
 	load r3, r0
 	add r3, r1
-	store r3, r0
+	store r3, r0 #storing decremented counter M[0]
 	init r1, 1
-	load r3, r0 # r3 = M[0] (the counter)
 	load r3, r1 	#loads the value for loading the pattern array
 	load r2, r3	#loads the value of the pattern array
 	add r1, r1 #make r1 = 2
