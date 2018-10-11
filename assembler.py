@@ -79,6 +79,7 @@ def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_
     # For each line in input file process the function
     for line in input_file:
         # Remove comments from code
+        line = line.strip()
         if line.startswith("#"):
             continue
         line = line.replace(",", "")
@@ -118,7 +119,9 @@ registers = {"R0" : "00",
              "r1" : "01",
              "r2" : "10",
              "r3" : "11"}
-             
+
 
 if __name__ == "__main__":
-    assemble_file()
+    input_file_name = "Part2_ISA.txt"
+    output_file_name = "Part2_ISA_machine_Code.txt"
+    assemble_file(input_file_name, output_file_name)

@@ -1,15 +1,14 @@
-load 000 RR RR
-store 001 RR RR
-add 010 RR RR
-beq 011 RR RR #we need to make this more clear.
-slt 100 RR RR
-init 101 RR ii
-slr 110 00 RR
-and 110 01 RR
-jump 110 10 RR
-xor 111 RR	RR
-
-# This is part two of project 2 searching for best matching     # score and count. 
+#load 000 RR RR
+#store 001 RR RR
+#add 010 RR RR
+#beq 011 RR RR #we need to make this more clear.
+#slt 100 RR RR
+#init 101 RR ii
+#slr 110 00 RR
+#and 110 01 RR
+#jump 110 10 RR
+#xor 111 RR	RR
+# This is part two of project 2 searching for best matching     # score and count.
 # M[8] = beginning of Pattern_Array
 # M[7] = temp score # 2
 # M[6] = temp score holder
@@ -19,52 +18,51 @@ xor 111 RR	RR
 # M[2] = 16 a counter for each compare
 # M[1] = the address of beginning of pattern
 # M[0] = be used as a counter for number of patterns
-
-	init r0, 1				
-	init r1, 1 
-	init r2, 1 
-	init r3, 1 
+  init r0, 1
+	init r1, 1
+	init r2, 1
+	init r3, 1
 	add r3, r2 #r3 = 2
 	add r2, r3 #r2 = 3
 	add r3, r3 # r3 = 4
-	init r0, 0 
-	add r0, r3 # r0 = 4
-	add r3, r3	# r3 = 8
+	init r0, 0
+	add r0, r3 #r0 = 4
+	add r3, r3	#r3 = 8
 	store r3, r1	#M[1] = 8; the address of beginning of pattern
 	add r3, r3 	# r3 = 16
 	store r3, r2 	#M[2] = 16 a counter for each compare
 	add r3, r3 	# r3 = 32
-	init r1, 0 
+	init r1, 0
 	add r1, r3 # r1= 32
 	add r3, r3 # r3 = 64
 	init r2, 0
 	add r2, r3 #r2 = 64
 	add r3, r1 # r3 = 96
 	add r3, r0 # r3 = 100
-	init r0, 0 
+	init r0, 0
 	store r3, r0 # saves 100 into M[0] to be used as a counter
 	init r0, -1
 	add r0, r0
 	add r2, r0
-	jump r2 #jumps 62 lines to begin 
-Big loop:	
+	jump r2 #jumps 62 lines to begin
+#Big loop:
 	init r0, 1
 	init r1, 1
 	add r1, r1
-	add r0, r0#2
-	add r0, r0#4
-	add r0, r0#8
-	add r0, r0#16
+	add r0, r0 #2
+	add r0, r0 #4
+	add r0, r0 #8
+	add r0, r0 #16
 	store r0, r1 #sets bit counter back to 16
 	init r0, 1
 	init r1, 1
-	add r1, r1 #2 
+	add r1, r1 #2
 	add r1, r1 #4
 	add r0, r0 #2
 	add r0, r1 #6
 	load r2, r1 #r2 = M[4] best score
 	load r3, r0 #r3 = M[6] temp best score
-if they match add to match count
+#if they match add to match count
 	init r1, 1
 	init r0, -1
 	add r1, r1	#2
@@ -74,22 +72,22 @@ if they match add to match count
 	add r0, r0 #-2
 	add r1, r0 #14
 	beq r2, r3
-	jump r1 to end of incrementing match count (14)
+	jump r1 #to end of incrementing match count (14)
 	init r0, 1
 	init r1, 1
 	add r0, r0 #2
 	add r0, r0 #4
 	add r0, r1 #5
 	load r2, r0 # loads match count
-	add r2, r1 ## increments match count
+	add r2, r1 # increments match count
 	store r2, r0 # stores match count
 	add r1, r1 #2
 	add r1, r1 #4
 	add r0, r1 #r0=9
 	add r0, r0 #18
-	jump r0 to where M[6] is switched to 0 (18)
-if they are not equal are is the temp score larger
-if so write new value into best score
+	jump r0 #to where M[6] is switched to 0 (18)
+# if they are not equal are is the temp score larger
+# if so write new value into best score
 	slt r2, r3 # if r2<r3 r0=1
 	init r1, 1
 	init r2, 1
@@ -133,26 +131,26 @@ if so write new value into best score
 	init r3, 0
 	init r0, -1
 	init r2, 0
-	add r0, r0#-2
-	add r0, r0#-4
-	add r0, r0#-8
-	add r0, r0#-16
-	add r0, r0#-32
-	add r3, r0#-32
-	add r0, r3#-64
-	add r3, r0#-96
+	add r0, r0 #-2
+	add r0, r0 #-4
+	add r0, r0 #-8
+	add r0, r0 #-16
+	add r0, r0 #-32
+	add r3, r0 #-32
+	add r0, r3 #-64
+	add r3, r0 #-96
 	add r2, r3 #literally to make jump value easier
 	init r2, 1
-	init r0, 0	
+	init r0, 0
 	add r2, r2
 	load r2, r2
-	beq r2, r0 # if M[2] = goes to jump at mem 
+	beq r2, r0 # if M[2] = goes to jump at mem
 	beq r0, r0 # jumps next line if above statment is not true
 	jump r3 #jumps to line *big loop* in code for new pattern
 	init r3, 1
 	init r2, 0
-	add r2, r1 # r2 = 16bit NXOR of target & pattern 
-	and r2, r3 #if the first bit matches result =1 
+	add r2, r1 # r2 = 16bit NXOR of target & pattern
+	and r2, r3 #if the first bit matches result =1
 	init r0, 0
 	add r3, r3 #r3 = 2
 	add r0, r3
@@ -171,11 +169,11 @@ if so write new value into best score
 	init r0, -1
 	init r3, 0
 	init r2, 0 #literally because odd numbers suck
-	add r0, r0#-2
-	add r0, r0#-4
-	add r0, r0#-8
-	add r0, r0#-16
-	add r3, r0#-16
-	add r0, r0#-32
-	add r0, r3#-48
+	add r0, r0 #-2
+	add r0, r0 #-4
+	add r0, r0 #-8
+	add r0, r0 #-16
+	add r3, r0 #-16
+	add r0, r0 #-32
+	add r0, r3 #-48
 	jump r0 #back to *loop*
