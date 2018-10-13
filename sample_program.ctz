@@ -1,9 +1,16 @@
 init R0, 0
-load R1, R0
-init R0, 1
-load R2, R0
-add R1, R2
-add R0, R0
+load R3, R0 # R1 = M[0]
+init R1, 0
 store R1, R0
+load R1, R0 # Jump to here for loop
+init R2, -1
+add R1, R2 # R1 = R1 + -1
+store R1, R0
+add R3, R2 # Decrement counter
+add R2, R2 # R2 = -2
+add R2, R2 # R2 = -4
+add R2, R2 # R2 = -8
+beq R0, R3
+jump R2 # Jump back 6
 init R0, 0 # Dead loop
 jump R0

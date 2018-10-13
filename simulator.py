@@ -76,18 +76,44 @@ def run_program(cpu):
         elif instr[1:4] == "101":
             # Init instruction
             Rx = registers[instr[4:6]]
-            value = {"11" : -2,
-                     "10" : -1,
+            value = {"10" : -2,
+                     "11" : -1,
                      "00" : 0,
                      "01" : 1}
             cpu.R[Rx] = value[instr[6:8]]
             cpu.PC = cpu.PC + 1
             cpu.DIC = cpu.DIC + 1
         elif instr[1:6] == "11010":
+            # Jump
             Rx = registers[instr[6:8]]
             if cpu.R[Rx] == 0:
                 finished = True
             cpu.PC = cpu.PC + cpu.R[Rx]
+            cpu.DIC = cpu.DIC + 1
+        elif instr[1:4] == "011":
+            # Branch Equal
+            Rx = registers[instr[4:6]]
+            Ry = registers[instr[6:8]]
+            if cpu.R[Rx] == cpu.R[Ry]:
+                cpu.PC = cpu.PC + 1
+            cpu.PC = cpu.PC + 1
+            cpu.DIC = cpu.DIC + 1
+        elif instr[1:4] == "100":
+            # Set less than
+            Rx = registers[instr[4:6]]
+            Ry = registers[instr[6:8]]
+            if cpu.R[Rx] < cpu.R[Ry]:
+                cpu.R[0] = 1
+            else
+                cpu.R[0] = 0
+            cpu.PC = cpu.PC + 1
+            cpu.DIC = cpu.DIC + 1
+        elif instr[1:4] == "111":
+            # xor
+            Rx = registers[instr[4:6]]
+            Ry = registers[instr[6:8]]
+            cpu.R[Rx] = cpu.R[Rx] ^ cpu.R[Ry] # May not work correctly because of way python does 2's comp
+            cpu.PC = cpu.PC + 1
             cpu.DIC = cpu.DIC + 1
         else:
             print("Error Unknown command")

@@ -23,7 +23,7 @@ def instr_add(line):
 
 def instr_branch(line):
     # 011 RX RY
-    if line[0] != "branch":
+    if line[0] != "beq":
         return "ERROR LINE CANNOT BE PARSED"
     else:
         return "011" + registers.get(line[1], "??") + registers.get(line[2], "??")
@@ -102,7 +102,7 @@ def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_
 instructions = {"load" : instr_load,
                "store" : instr_store,
                "add" : instr_add,
-               "branch" : instr_branch,
+               "beq" : instr_branch,
                "jump" : instr_jump,
                "init" : instr_init,
                "and" : instr_and,
