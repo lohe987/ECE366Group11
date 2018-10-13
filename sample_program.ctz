@@ -1,0 +1,9 @@
+init R0, 0
+load R1, R0
+init R0, 1
+load R2, R0
+add R1, R2
+add R0, R0
+store R1, R0
+init R0, 0 # Dead loop
+jump R0

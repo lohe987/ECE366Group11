@@ -122,6 +122,6 @@ registers = {"R0" : "00",
 
 
 if __name__ == "__main__":
-    input_file_name = "Part2_ISA.txt"
-    output_file_name = "Part2_ISA_machine_Code.txt"
+    input_file_name = "sample_program.ctz"
+    output_file_name = "sample_program_machine.ctz"
     assemble_file(input_file_name, output_file_name)
