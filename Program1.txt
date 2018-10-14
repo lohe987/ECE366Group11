@@ -1,0 +1,188 @@
+init R0,1
+load R0,R0  #loads in the value of Q into the register
+init R1,0 
+
+init R3,1
+init R2,1
+add R3,R3   #R3=2
+add R3,R3   #R3=4
+add R3,R2   #R3=5
+
+#case for Q=0
+beq  R0,R1  # checks if Q is equal to 0
+jump R3      #jumps 5 to set to mem[2] to zero
+
+#case for Q=1
+init R1,1   #R1=1
+add R1,R1   #R1=2  
+add R1,R2   #R1=3
+beq  R0,R2  #checks if Q is equal to 1
+jump R1      #jumps 3 to set mem[2] to zero
+add R3,R2    #R3=6
+add R3,R2    #R3=7
+jump R3      #jumps 7 to main loop
+
+#branch of mem[2]=0
+init R0,1
+init R1,0   
+add R0,R0   #R0=2
+store R1,R0 # Stores at 2 the value of 0 because anything modded with 0 is 0
+init R1,-1
+jump R1 # dead loop
+
+# start of main loop
+init R1,0
+init R2,1
+init R3=1
+add  R2,R2 #R2=2
+add  R0,R2 #R0=2
+add  R2,R2 #R2=4
+store R1,R2 # at mem[4]=0 for keep track of counter
+add R1,R2  #R1=4
+add R2,R2  #R2=8
+add R2,R3  #R2=9
+add R1,R0  #R1=6
+add R1,R3  #R1=7
+store R3,R1 # at mem[7]=1 for multiplication loop counter
+
+
+
+#while loop
+init R1,1
+init R2,1
+init R3,0
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+load R1,R1 #R1=counter
+load R3,R3 #R3=P
+slt R1,R3 
+beq R0,R2 #if counter<Q
+jump  #jumps to done
+
+#start of multiplication branch
+init R0,0
+init R1,1
+init R2,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+load R2,R1 #R2=bigCounter
+beq R2,R0
+jump  #jumps to branch where mem[6]=6
+
+#loop for multiplication
+init R0,1
+init R2,1
+add R0,R0 #R0=2
+init R1,0
+add R1,R0
+add R0,R0 #R0=4
+add R0,R1 #R0=6
+load R3,R0 #R3=currentVal
+add R0,R2 # R0=7
+load R2,R0 #R2=counter
+slt R2,R3
+init R3,0
+beq R0,R3 #if counter != currentVal jumps over the exit
+jump  #jumps to store new currentVal
+init R3,1
+add R2,R3 # counter++
+store R2,R0 # mem[7]=counter
+add R0,R3 # R0=8
+load R1,R0 # R1=newVal
+init R2,-2 # R2=-2
+init R3,0  # R3=0
+add R3,R0  # R3=8
+add R3,R2  # R3=6
+add R1,R3  #newVal=newVal+6
+store R1,R0 # mem[8]=newVal
+jump  #jumps back to beginning of multiplication loop
+
+#branch where mem[6]=6
+init R0,1
+init R1,0
+add R0,R0 #R0=2
+add R1,R0 #R1=2
+add R0,R0 #R0=4
+add R0,R1 #R0=6
+store R0,R0 #stores mem[6]=6
+jump  #jumps to mod
+
+#branch stores newVal to currentVal
+init R0,1
+init R1,0
+init R2,0
+init R3,0
+add R0,R0 #R0=2
+add R1,R0 #R1=2
+add R0,R0 #R0=4
+add R0,R1 #R0=6
+add R2,R0 #R2=6
+add R2,R1 #R2=8
+load R3, R2 #R3=newVal
+init R1,0
+store R1,R2 #stores mem[8]=0=newVal
+store R3,R0 #stores mem[6] = newVal=currentVal
+
+
+#mod branch
+init R0,1
+init R1,0
+add R0,R0 #R0=2
+add R1,R0 #R1=2
+add R0,R0 #R0=4
+add R0,R1 #R0=6
+load R1, R0 #R1=currentVal
+init R2,1
+load R2,R2 #R2=Q
+slt R1,R2 #while loop start
+init R3,1
+beq R0,R3 #check is currentVal<Q
+jump R2 #jumps to end 
+init R0,1
+init R1,0
+add R0,R0 #R0=2
+add R1,R0 #R1=2
+add R0,R0 #R0=4
+add R0,R1 #R0=6
+load R1, R0 #R1=currentVal
+init R2,1
+load R2,R2 #R2=Q
+init R3,0
+add R3,R2  #R3=Q
+not R3 #R3=-Q
+add R1,R3 #currentVal=currentVal-Q
+store R1,R0 #stores at mem[6]=currentVal
+jump  #jumps back to while loop start
+
+#end 
+init R0,1
+init R2,1
+add R0,R0 #R0=2
+init R3,0
+add R3,R0 #R3=2
+add R0,R0 #R0=4
+load R1,R0 #R1=counter
+add R1,R2 #counter++
+store R1,R0 #mem[4]=counter
+jump  #jumps to while loop
+
+#done
+init R0,1
+init R1,0
+init R2,1
+add R2,R2 #R2=2
+add R0,R0 #R0=2
+add R1,R0 #R1=2
+add R0,R0 #R0=4
+add R0,R1 #R0=6
+load R0,R0 #R0=currentVal
+store R0,R2 #stores mem[2]=currentVal=R
+
+
+
+
+
+
+
+
+
