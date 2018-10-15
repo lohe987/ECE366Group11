@@ -41,6 +41,160 @@ add R1,R0  #R1=6
 add R1,R3  #R1=7
 store R3,R1 # at mem[7]=1 for multiplication loop counter
 
+#branch for mem[10]=156
+init R1,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+add R1,R1 #R1=8
+add R1,R1 #R1=16
+add R1,R1 #R1=32
+init R2,0
+add R2,R1 #R2=32
+add R1,R1 #R1=64
+add R1,R1 #R1=128
+add R1,R2 #R1=160
+init R2,-2
+add R2,R2 #R2=-4
+add R1,R2 #R1=156
+init R0,1
+add R0,R0 #R0=2
+init R3,0
+add R3,R0 #R3=2
+add R0,R0 #R0=4
+add R0,R0 #R0=8
+add R0,R3 #R0=10
+store R1, R0 #156=mem[10]
+
+#branch for mem[12]=41
+init R1,1
+init R1,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+add R1,R1 #R1=8
+init R0,0
+add R0,R1 #R0=8
+add R1,R1 #R1=16
+add R1,R1 #R1=32
+add R1,R0 #R1=40
+init R0,1 
+add R1,R0 #R1=41
+init R2,1
+add R2,R2 #R2=2
+add R2,R2 #R2=4
+init R3,0
+add R3,R2 #R3=4
+add R2,R2 #R2=8
+add R2,R3 #R2=12
+store R1,R2 #41=mem[12]
+
+#branch for mem[14]=-39
+init R0,-2
+add R0,R0 #R0=-4
+add R0,R0 #R0=-8
+init R1,0
+add R1,R0 #R1=-8
+add R0,R0 #R0=-16
+add R0,R0 #R0=-32
+add R0,R1 #R0=-40
+init R1,1
+add R0,R1 #R0=-39
+init R1,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+add R1,R1 #R1=8
+add R1,R1 #R1=16
+init R2,-2
+add R1,R2 #R1=14
+store R0,R1 #-39=mem[14]
+
+#branch for mem[16]=38
+init R1,1
+init R1,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+add R1,R1 #R1=8
+init R0,0
+add R0,R1 #R0=8
+add R1,R1 #R1=16
+add R1,R1 #R1=32
+add R1,R0 #R1=40
+init R0,-2
+add R1,R0 #R1=38
+init R0,1
+add R0,R0 #R0=2
+add R0,R0 #R0=4
+add R0,R0 #R0=8
+add R0,R0 #R0=16
+store R1,R0 #38=mem[16]
+
+#branch for mem[18]=15
+init R0,1
+add R0,R0 #R0=2
+init R1,0
+add R1,R0 #R1=2
+add R0,R0 #R0=4
+add R0,R0 #R0=8
+add R0,R0 #R0=16
+add R0,R1 #R0=18
+init R1,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+add R1,R1 #R1=8
+add R1,R1 #R1=16
+init R2,-1
+add R1,R2 #R1=15
+store R1,R0 #15=mem[18]
+
+#branch for mem[20]=28
+init R1,1
+add R1,R1 #R1=2
+add R0,R1 #R0=20
+init R1,1
+add R1,R1 #R1=2
+add R1,R1 #R1=4
+add R1,R1 #R1=8
+add R1,r0 #R1=28
+store R1,R0 #28=mem[20]
+
+#branch for mem[22]=-48
+init R1,1
+add R1,R1 #R1=2
+add R0,R1 #R0=22
+init R1,-2
+add R1,R1 #R1=-4
+add R1,R1 #R1=-8
+add R1,R1 #R1=-16
+init R2,0
+add R2,R1 #R2=-16
+add R1,R1 #R1=-32
+add R1,R2 #R1=-48
+store R1,R0 #-48=mem[22]
+
+#branch for mem[24]=-173
+init R1,1
+add R1,R1 #R1=2
+add R0,R1 #R0=24
+init R1,-2
+add R1,R1 #R1=-4
+add R1,R1 #R1=-8
+add R1,R1 #R1=-16
+add R1,R1 #R1=-32
+init R2,0
+add R2,R1 #R2=-32
+add R1,R1 #R1=-64
+add R1,R1 #R1=-128
+add R1,R2 #R1=-160
+init R2,-2
+add R2,R2 #R2=-4
+add R2,R2 #R2=-8
+add R2,R2 #R2=-16
+add R1,R2 #R1=-176
+init R2,1
+add R1,R2 #R1=-175
+add R1,R2 #R1=-174
+add R1,R2 #R1=-173
+store R1,R0 #-173=mem[24]
+
 
 
 init R1,1 #while loop
@@ -183,6 +337,8 @@ load R2,R2 #R2=Q
 init R3,0
 add R3,R2  #R3=Q
 not R3 #R3=-Q
+init R2,1
+add R3,R1 #R3=-Q for the twoscomplement
 add R1,R3 #currentVal=currentVal-Q
 store R1,R0 #stores at mem[6]=currentVal
 init R1,1
