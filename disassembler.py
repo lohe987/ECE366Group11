@@ -60,12 +60,21 @@ def disassemble_file(input_file_name="CTZ_machine_code.txt", output_file_name="C
     for line in input_file:
         # Remove new line for line
         line = line.replace("\n", "")
-        if check_parity_bit(line):
-            asm_line = determine_function(line)
-        else:
-            asm_line = "PARITY ERROR"
 
-        output_file.write(asm_line + "\n")
+        comment = ""
+        asm_line = ""
+        index = line.find("#")
+        if index > -1:
+            comment = line[index:]
+            line = line[0:index]
+
+        if len(line) > 0:
+            if check_parity_bit(line):
+                asm_line = determine_function(line)
+            else:
+                asm_line = "PARITY ERROR"
+
+        output_file.write(asm_line + " " + comment + "\n")
 
     input_file.close()
     output_file.close()
@@ -76,4 +85,8 @@ registers_bin_text = {"00" : "R0",
                       "11" : "R3"}
 
 if __name__ == "__main__":
-    disassemble_file()
+    input_file_1 = "Program1_machine_code.txt"
+    output_file_1 = "Program1_disasm.txt"
+    input_file_2 = "Part2_ISA_machine_code.txt"
+    output_file_2 = "Program2_disasm.txt"
+    disassemble_file(input_file_2, output_file_2)
