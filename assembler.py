@@ -94,9 +94,9 @@ def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_
         else:
             line = line.replace(",", " ")
             line = line.replace("\n", "")
+            line = line.replace("\t", " ")
             line = line.split(" ")
             line = list(filter(None, line))
-            print(line)
             func = instructions.get(line[0], "?")
             # Check if function is known if not print error message
             if func == "?":
