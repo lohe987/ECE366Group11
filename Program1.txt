@@ -1,7 +1,7 @@
 
 init R0,1
 load R0,R0  #loads in the value of Q into the register
-init R1,0 
+init R1,0
 
 init R3,1
 init R2,1
@@ -12,15 +12,15 @@ add R3,R2   #R3=5
 
 #case for Q=1
 init R1,1   #R1=1
-add R1,R1   #R1=2  
-add R1,R1   #R1=2 
+add R1,R1   #R1=2
+add R1,R1   #R1=2
 add R3,R1   #R3=7
 beq  R0,R2  #checks if Q is equal to 1
 jump R3      #jumps 7 to main loop
 
 #branch of mem[2]=0
 init R0,1
-init R1,0   
+init R1,0
 add R0,R0   #R0=2
 store R1,R0 # Stores at 2 the value of 0 because anything modded with 0 is 0
 init R1,-1
@@ -29,7 +29,7 @@ jump R1 # dead loop
 # start of main loop
 init R1,0
 init R2,1
-init R3=1
+init R3,1
 add  R2,R2 #R2=2
 add  R0,R2 #R0=2
 add  R2,R2 #R2=4
@@ -76,7 +76,7 @@ add R0,R1 #R0=8
 add R1,R1 #R1=16
 add R1,R1 #R1=32
 add R1,R0 #R1=40
-init R0,1 
+init R0,1
 add R1,R0 #R1=41
 init R2,1
 add R2,R2 #R2=2
@@ -324,7 +324,7 @@ add R1,R1 #R1=16
 add R1,R2 #R1=20
 load R1,R1 #R1=mem[20]=28
 beq R0,R3 #check is if Q<currentVal
-jump R1 #jumps to end 
+jump R1 #jumps to end
 init R0,1
 init R1,0
 add R0,R0 #R0=2
@@ -338,7 +338,7 @@ init R3,0
 add R3,R2  #R3=Q
 not R3 #R3=-Q
 init R2,1
-add R3,R1 #R3=-Q for the twoscomplement
+add R3,R2 #R3=-Q for the twoscomplement
 add R1,R3 #currentVal=currentVal-Q
 store R1,R0 #stores at mem[6]=currentVal
 init R1,1
@@ -354,7 +354,7 @@ init R2,-2
 add R1,R2 #R1=22
 load R1,R1 #R1=mem[22]=-48
 jump R1 #jumps back to mod branch start
-init R0,1 #end 
+init R0,1 #end
 init R2,1
 add R0,R0 #R0=2
 init R3,0
@@ -383,21 +383,3 @@ add R0,R0 #R0=4
 add R0,R1 #R0=6
 load R0,R0 #R0=currentVal
 store R0,R2 #stores mem[2]=currentVal=R
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
