@@ -338,7 +338,7 @@ init R3,0
 add R3,R2  #R3=Q
 not R3 #R3=-Q
 init R2,1
-add R3,R1 #R3=-Q for the twoscomplement
+add R3,R2 #R3=-Q for the twoscomplement
 add R1,R3 #currentVal=currentVal-Q
 store R1,R0 #stores at mem[6]=currentVal
 init R1,1
