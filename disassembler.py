@@ -85,8 +85,8 @@ registers_bin_text = {"00" : "R0",
                       "11" : "R3"}
 
 if __name__ == "__main__":
-    input_file_1 = "Program1_machine_code.txt"
-    output_file_1 = "Program1_disasm.txt"
-    input_file_2 = "Part2_ISA_machine_code.txt"
-    output_file_2 = "Program2_disasm.txt"
+    input_file_1 = "project2_group_11_p1_bin.txt"
+    output_file_1 = "project2_group_11_p1_asm.txt"
+    input_file_2 = "project2_group_11_p2_bin.txt"
+    output_file_2 = "project2_group_11_p2_asm.txt"
     disassemble_file(input_file_2, output_file_2)

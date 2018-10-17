@@ -135,5 +135,5 @@ registers = {"R0" : "00",
 
 if __name__ == "__main__":
     input_file_name = "Program1.txt"
-    output_file_name = "Program1_machine_code.txt"
+    output_file_name = "project2_group_11_p1_bin.txt"
     assemble_file(input_file_name, output_file_name)
