@@ -78,21 +78,33 @@ def assemble_file(input_file_name="CTZ_instructions.txt", output_file_name="CTZ_
 
     # For each line in input file process the function
     for line in input_file:
+        old_line = line
+        comment = ""
+        func = "?"
+        if line.find("#") > -1:
+            comment = line[line.find("#"):]
+            comment = comment.strip("\n")
+
         # Remove comments from code
         line = line.strip()
         if line.startswith("#"):
-            continue
-        line = line.replace(",", "")
-        line = line.replace("\n", "")
-        line = line.split(" ")
-        func = instructions.get(line[0], "?")
-        # Check if function is known if not print error messafe
-        if func == "?":
-            output_file.write("UNKNOWN\n")
+            output_file.write(line + "\n")
+        elif len(line) < 1:
+            output_file.write("\n")
         else:
-            # Encode function then add praity bit
-            encoded = add_praity_bit(func(line)) + "\n"
-            output_file.write(encoded)
+            line = line.replace(",", " ")
+            line = line.replace("\n", "")
+            line = line.split(" ")
+            line = list(filter(None, line))
+            print(line)
+            func = instructions.get(line[0], "?")
+            # Check if function is known if not print error message
+            if func == "?":
+                output_file.write("UNKNOWN\n")
+            else:
+                # Encode function then add praity bit
+                encoded = add_praity_bit(func(line))
+                output_file.write(encoded + " " + comment + "\n")
 
     input_file.close()
     output_file.close()
@@ -122,6 +134,6 @@ registers = {"R0" : "00",
 
 
 if __name__ == "__main__":
-    input_file_name = "sample_program.ctz"
-    output_file_name = "sample_program_machine.ctz"
+    input_file_name = "Program1.txt"
+    output_file_name = "Program1_machine_code.txt"
     assemble_file(input_file_name, output_file_name)
