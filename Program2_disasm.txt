@@ -1,0 +1,179 @@
+ #load 000 RR RR
+ #store 001 RR RR
+ #add 010 RR RR
+ #beq 011 RR RR #we need to make this more clear.
+ #slt 100 RR RR
+ #init 101 RR ii
+ #slr 110 00 RR
+ #and 110 01 RR
+ #jump 110 10 RR
+ #xor 111 RR	RR
+ # This is part two of project 2 searching for best matching     # score and count.
+ # M[8] = beginning of Pattern_Array
+ # M[7] = temp score # 2
+ # M[6] = temp score holder
+ # M[5] = best_matching_count
+ # M[4] = best_mathing_Score
+ # M[3] = target
+ # M[2] = 16 a counter for each compare
+ # M[1] = the address of beginning of pattern
+ # M[0] = be used as a counter for number of patterns
+init R0, 1 
+init R1, 1 
+init R2, 1 
+init R3, 1 
+add R3, R2 #r3 = 2
+add R2, R3 #r2 = 3
+add R3, R3 # r3 = 4
+init R0, 0 
+add R0, R3 #r0 = 4
+add R3, R3 #r3 = 8
+store R3, R1 #M[1] = 8; the address of beginning of pattern
+add R3, R3 # r3 = 16
+store R3, R2 #M[2] = 16 a counter for each compare
+add R3, R3 # r3 = 32
+init R1, 0 
+add R1, R3 # r1= 32
+add R3, R3 # r3 = 64
+init R2, 0 
+add R2, R3 #r2 = 64
+add R3, R1 # r3 = 96
+add R3, R0 # r3 = 100
+init R0, 0 
+store R3, R0 # saves 100 into M[0] to be used as a counter
+init R0, -2 
+add R0, R0 
+add R2, R0 
+jump R2 #jumps 62 lines to begin
+ #Big loop:
+init R0, 1 
+init R1, 1 
+add R1, R1 
+add R0, R0 #2
+add R0, R0 #4
+add R0, R0 #8
+add R0, R0 #16
+store R0, R1 #sets bit counter back to 16
+init R0, 1 
+init R1, 1 
+add R1, R1 #2
+add R1, R1 #4
+add R0, R0 #2
+add R0, R1 #6
+load R2, R1 #r2 = M[4] best score
+load R3, R0 #r3 = M[6] temp best score
+ #if they match add to match count
+init R1, 1 
+init R0, -2 
+add R1, R1 #2
+add R1, R1 #4
+add R1, R1 #8
+add R1, R1 #16
+add R0, R0 #-2
+add R1, R0 #14
+beq R2, R3 
+jump R1 #to end of incrementing match count (14)
+init R0, 1 
+init R1, 1 
+add R0, R0 #2
+add R0, R0 #4
+add R0, R1 #5
+load R2, R0 # loads match count
+add R2, R1 # increments match count
+store R2, R0 # stores match count
+add R1, R1 #2
+add R1, R1 #4
+add R0, R1 #r0=9
+add R0, R0 #18
+jump R0 #to where M[6] is switched to 0 (18)
+ # if they are not equal are is the temp score larger
+ # if so write new value into best score
+slt R2, R3 # if r2<r3 r0=1
+init R1, 1 
+init R2, 1 
+add R2, R2 #2
+add R2, R2 #4
+add R2, R2 #8
+add R2, R1 #9
+beq R0, R1 # skips jump to store new value in best
+jump R2 #jumps to set temp counter to 0 (9)
+init R0, 1 
+add R0, R0 
+add R0, R0 
+store R3, R0 # if r2<r3 then M[4] = r3 (r0=1)
+init R1, 1 
+add R0, R1 
+init R1, 0 
+store R1, R0 #if new best score found match=0
+init R0, 1 
+init R1, 0 
+add R0, R0 #r0=2
+add R1, R0 #r1=2
+add R0, R0 #r0=4
+add R0, R1 #r0=6
+init R1, 0 
+store R1, R0 #sets temp counter (M[6]) to 0
+init R0, 0 # where it actually begins to decrement
+init R1, -2 
+load R3, R0 
+add R3, R1 
+store R3, R0 #storing decremented counter M[0]
+init R1, 1 
+load R3, R1 #loads the value for loading the pattern array
+load R2, R3 #loads the value of the pattern array
+add R1, R1 #make r1 = 2
+init R0, 1 
+add R1, R0 
+load R1, R1 #load the target word
+xor R1, R2 #the number of 0s in r1 is = to # of bits match
+not R1 #NOT's r1 to that the 0's become 1's
+ #loop:
+init R3, 0 
+init R0, -2 
+init R2, 0 
+add R0, R0 #-2
+add R0, R0 #-4
+add R0, R0 #-8
+add R0, R0 #-16
+add R0, R0 #-32
+add R3, R0 #-32
+add R0, R3 #-64
+add R3, R0 #-96
+add R2, R3 #literally to make jump value easier
+init R2, 1 
+init R0, 0 
+add R2, R2 
+load R2, R2 
+beq R2, R0 # if M[2] = goes to jump at mem
+beq R0, R0 # jumps next line if above statment is not true
+jump R3 #jumps to line *big loop* in code for new pattern
+init R3, 1 
+init R2, 0 
+add R2, R1 # r2 = 16bit NXOR of target & pattern
+and R2 #if the first bit matches result =1
+init R0, 0 
+add R3, R3 #r3 = 2
+add R0, R3 
+add R3, R3 #r3 = 4
+add R3, R0 # r3 = 6
+load R0, R3 #loads the existing value for best score temp
+add R2, R0 #adds the result of and to the best temp score counter
+store R2, R3 #saves r2 back to best temp score
+slr R1 
+init R2, 1 
+add R2, R2 #r2 = 2
+load R3, R2 #loads the counter (from 16 down)
+init R0, -2 
+add R3, R0 
+store R3, R2 # saves the counter back in after -1
+init R0, -2 
+init R3, 0 
+init R2, 0 #literally because odd numbers suck
+add R0, R0 #-2
+add R0, R0 #-4
+add R0, R0 #-8
+add R0, R0 #-16
+add R3, R0 #-16
+add R0, R0 #-32
+add R0, R3 #-48
+jump R0 #back to *loop*
