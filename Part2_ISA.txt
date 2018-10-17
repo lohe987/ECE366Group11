@@ -159,7 +159,7 @@
 	load r0, r3 	#loads the existing value for best score temp
 	add r2, r0 	#adds the result of and to the best temp score counter
 	store r2, r3	#saves r2 back to best temp score
-	srl r1
+	slr r1
 	init r2, 1
 	add r2, r2 #r2 = 2
 	load r3, r2	#loads the counter (from 16 down)
